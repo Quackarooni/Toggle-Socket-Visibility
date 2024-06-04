@@ -149,6 +149,37 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
 
         return has_nodetree and has_selection
 
+    def draw(self, context):
+        layout = self.layout
+        node = context.active_node
+
+        if hasattr(node, "node_tree"):
+            label = f"{node.bl_label} ({node.node_tree.name})"
+        else:
+            label = node.bl_label
+
+        layout.label(text=f"Active Node: {label}", icon="NODE")
+        box = layout.box()
+
+        inputs, outputs = node.inputs, node.outputs
+        has_inputs = len(inputs) > 0
+        has_outputs = len(outputs) > 0
+
+        sublayout = box.row()
+
+        if has_inputs:
+            col = sublayout.column(align=True)
+            self.draw_title(col, header_text="Inputs")
+            self.draw_sockets(col, sockets=inputs)
+
+        if has_outputs:
+            col = sublayout.column(align=True)
+            self.draw_title(col, header_text="Outputs")
+            self.draw_sockets(col, sockets=outputs)
+
+        if not (has_inputs or has_outputs):
+            sublayout.label(text="No inputs/outputs found.", icon="PANEL_CLOSE")
+
     def execute(self, context):
         return {"FINISHED"}
 

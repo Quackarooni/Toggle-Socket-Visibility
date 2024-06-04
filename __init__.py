@@ -12,13 +12,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 bl_info = {
-    "name" : "Toggle Socket Visibility",
-    "author" : "Quackers",
-    "description" : "Adds a panel for configuring the visibility of a node's inputs and/or outputs",
-    "blender" : (3, 0, 0),
-    "version" : (0, 0, 1),
-    "location" : "Node Editor",
-    "category" : "Node"
+    "name": "Toggle Socket Visibility",
+    "author": "Quackers",
+    "description": "Adds a panel for configuring the visibility of a node's inputs and/or outputs",
+    "blender": (3, 0, 0),
+    "version": (0, 0, 1),
+    "location": "Node Editor",
+    "category": "Node",
 }
 
 import bpy
@@ -54,15 +54,15 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
     @classmethod
     def poll(cls, context):
         nodetree = fetch_active_nodetree(context)
-        return (nodetree is not None)
+        return nodetree is not None
 
     @staticmethod
     def draw_sockets(layout, sockets):
         if len(sockets) <= 0:
-            return 
+            return
 
         layout = layout.box().column(align=True)
-        
+
         for inp in sockets:
             if not inp.enabled or isinstance(inp, NodeSocketVirtual):
                 continue
@@ -76,7 +76,7 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
 
             if not inp.is_linked:
                 row.prop(inp, "hide", text="", invert_checkbox=True)
-            else:            
+            else:
                 row.label(text="", icon="DECORATE_LINKED")
 
             row.label(text=name)
@@ -85,7 +85,7 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
     @staticmethod
     def draw_title(layout, header_text):
         row = layout.row()
-        row.alignment = 'CENTER'
+        row.alignment = "CENTER"
         row.label(text=header_text)
 
     def draw(self, context):
@@ -102,7 +102,7 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
             is_nodegroup = hasattr(node, "node_tree")
             if is_nodegroup:
                 label += f" ({node.node_tree.name})"
-            
+
             inputs = node.inputs
             outputs = node.outputs
 
@@ -135,15 +135,16 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
 
 class NodeToggleInputOutputPrefs(AddonPreferences):
     bl_idname = __package__
-    
+
     display_mode: EnumProperty(
         name="Display Mode",
         items=(
             ("HORIZONTAL", "Horizontal", "Display input and output entries side-by-side"),
             ("VERTICAL", "Vertical", "Display input entries above output entries"),
         ),
-        default='HORIZONTAL',
-        description="Determines how the inputs & outputs are going to be displayed")
+        default="HORIZONTAL",
+        description="Determines how the inputs & outputs are going to be displayed",
+    )
 
     def draw(self, context):
         layout = self.layout
@@ -159,6 +160,7 @@ classes = (
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
+
 
 def unregister():
     for cls in classes:

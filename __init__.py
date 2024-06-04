@@ -22,7 +22,7 @@ bl_info = {
 }
 
 import bpy
-from bpy.props import EnumProperty, IntProperty
+from bpy.props import EnumProperty, IntProperty, StringProperty
 from bpy.types import AddonPreferences, NodeSocketVirtual, Operator, Panel
 
 
@@ -188,6 +188,14 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
         return context.window_manager.invoke_popup(self, width=width)
 
 
+def panel_category_callback(self, context):
+    NODE_PT_TOGGLE_NODE_SOCKETS.bl_category = self.panel_location
+    if hasattr(bpy.types, "NODE_PT_TOGGLE_NODE_SOCKETS"):
+        bpy.utils.unregister_class(NODE_PT_TOGGLE_NODE_SOCKETS)
+
+    bpy.utils.register_class(NODE_PT_TOGGLE_NODE_SOCKETS)
+
+
 class NodeToggleInputOutputPrefs(AddonPreferences):
     bl_idname = __package__
 
@@ -201,11 +209,13 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
         description="Determines how the inputs & outputs are going to be displayed",
     )
 
+    panel_location: StringProperty(name="Panel Location", default="View", update=panel_category_callback)
     popup_width: IntProperty(name="Popup Width", default=250, min=100, soft_max=600, max=9999)
 
     def draw(self, context):
         layout = self.layout
         layout.prop(self, "display_mode")
+        layout.prop(self, "panel_location")
         layout.prop(self, "popup_width")
 
 

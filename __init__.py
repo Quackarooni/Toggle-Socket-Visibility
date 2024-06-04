@@ -23,7 +23,7 @@ bl_info = {
 
 import bpy
 from bpy.props import EnumProperty
-from bpy.types import AddonPreferences, NodeSocketVirtual, Panel
+from bpy.types import AddonPreferences, NodeSocketVirtual, Operator, Panel
 
 
 def fetch_user_preferences(attr_id=None):
@@ -45,17 +45,7 @@ def fetch_active_nodetree(context):
         return node_tree
 
 
-class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
-    bl_label = "Socket Visibility"
-    bl_space_type = "NODE_EDITOR"
-    bl_region_type = "UI"
-    bl_category = "View"
-
-    @classmethod
-    def poll(cls, context):
-        nodetree = fetch_active_nodetree(context)
-        return nodetree is not None
-
+class SocketDrawingBaseclass:
     @staticmethod
     def draw_sockets(layout, sockets):
         if len(sockets) <= 0:
@@ -133,6 +123,39 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel):
                 sublayout.label(text="No inputs/outputs found.", icon="PANEL_CLOSE")
 
 
+class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
+    bl_label = "Toggle Socket Visibility"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_category = "View"
+
+    @classmethod
+    def poll(cls, context):
+        nodetree = fetch_active_nodetree(context)
+        return nodetree is not None
+
+
+class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
+    bl_label = "Socket Visibility"
+    bl_idname = "node.toggle_socket_visibility"
+    bl_description = "Renames all selected nodes according to specified label"
+    bl_options = {"REGISTER"}
+
+    @classmethod
+    def poll(cls, context):
+        node = context.active_node
+        has_selection = (node is not None) and (node.select)
+        has_nodetree = fetch_active_nodetree(context) is not None
+
+        return has_nodetree and has_selection
+
+    def execute(self, context):
+        return {"FINISHED"}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_popup(self, width=250)
+
+
 class NodeToggleInputOutputPrefs(AddonPreferences):
     bl_idname = __package__
 
@@ -153,6 +176,7 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
 
 classes = (
     NODE_PT_TOGGLE_NODE_SOCKETS,
+    NODE_OT_TOGGLE_NODE_SOCKETS_POPUP,
     NodeToggleInputOutputPrefs,
 )
 

@@ -124,7 +124,7 @@ class SocketDrawingBaseclass:
 
 
 class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
-    bl_label = "Toggle Socket Visibility"
+    bl_label = "Socket Visibility"
     bl_space_type = "NODE_EDITOR"
     bl_region_type = "UI"
     bl_category = "View"
@@ -136,7 +136,7 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
 
 
 class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
-    bl_label = "Socket Visibility"
+    bl_label = "Toggle Socket Visibility"
     bl_idname = "node.toggle_socket_visibility"
     bl_description = "Renames all selected nodes according to specified label"
     bl_options = {"REGISTER"}

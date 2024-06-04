@@ -45,6 +45,13 @@ def fetch_active_nodetree(context):
         return node_tree
 
 
+def nice_name(node):
+    if hasattr(node, "node_tree"):
+        return f"{node.bl_label} ({node.node_tree.name})"
+    else:
+        return node.bl_label
+
+
 class SocketDrawingBaseclass:
     @staticmethod
     def draw_sockets(layout, sockets):
@@ -87,19 +94,13 @@ class SocketDrawingBaseclass:
             layout.label(text="No node currently selected.")
             return
         else:
-            label = node.bl_label
-
-            is_nodegroup = hasattr(node, "node_tree")
-            if is_nodegroup:
-                label += f" ({node.node_tree.name})"
-
             inputs = node.inputs
             outputs = node.outputs
 
             has_inputs = len(inputs) > 0
             has_outputs = len(outputs) > 0
 
-            layout.label(text=f"Active Node: {label}")
+            layout.label(text=f"Active Node: {nice_name(node)}")
             box = layout.box()
 
             display_horizontal = fetch_user_preferences("display_mode") == "HORIZONTAL"
@@ -153,12 +154,7 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
         layout = self.layout
         node = context.active_node
 
-        if hasattr(node, "node_tree"):
-            label = f"{node.bl_label} ({node.node_tree.name})"
-        else:
-            label = node.bl_label
-
-        layout.label(text=f"Active Node: {label}", icon="NODE")
+        layout.label(text=f"Active Node: {nice_name(node)}", icon="NODE")
         box = layout.box()
 
         inputs, outputs = node.inputs, node.outputs

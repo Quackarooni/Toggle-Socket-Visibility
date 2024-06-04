@@ -205,8 +205,21 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
         description="Determines how the inputs & outputs are going to be displayed",
     )
 
-    panel_location: StringProperty(name="Panel Location", default="View", update=panel_category_callback)
-    popup_width: IntProperty(name="Popup Width", default=250, min=100, soft_max=600, max=9999)
+    panel_location: StringProperty(
+        name="Panel Location",
+        default="View",
+        update=panel_category_callback,
+        description='Specifies in what category the "Socket Visibility" panel is placed (case-sensitive)',
+    )
+
+    popup_width: IntProperty(
+        name="Popup Width",
+        default=250,
+        min=100,
+        soft_max=600,
+        max=9999,
+        description="Specifies the width of the pop-up panel",
+    )
 
     def draw(self, context):
         layout = self.layout

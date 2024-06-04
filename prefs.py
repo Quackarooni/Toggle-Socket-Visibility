@@ -3,6 +3,7 @@ from bpy.props import EnumProperty, IntProperty, StringProperty
 from bpy.types import AddonPreferences
 
 from .ui import NODE_PT_TOGGLE_NODE_SOCKETS
+from .keymaps import keymap_layout
 
 
 def panel_category_callback(self, context):
@@ -47,6 +48,10 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
         layout.prop(self, "display_mode")
         layout.prop(self, "panel_location")
         layout.prop(self, "popup_width")
+        keymap_layout.draw_keyboard_shorcuts(self, layout, context)
+
+
+keymap_layout.register_properties(preferences=NodeToggleInputOutputPrefs)
 
 
 classes = (NodeToggleInputOutputPrefs,)

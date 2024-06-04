@@ -21,9 +21,9 @@ bl_info = {
     "category": "Node",
 }
 
-from . import ui, prefs
+from . import ui, prefs, keymaps
 
-modules = (ui, prefs)
+modules = (ui, prefs, keymaps)
 
 
 def register():

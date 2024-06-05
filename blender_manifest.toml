@@ -12,4 +12,10 @@ blender_version_min = "4.2.0"
 license = ["SPDX:GPL-3.0-or-later"]
 
 [build]
-paths_exclude_pattern = ["/.git/", "__pycache__/"]
+paths_exclude_pattern = [
+  "/.git/",
+  "**/.gitignore",
+  "**/__pycache__/",
+  ".ruff_cache",
+  "pyproject.toml",
+]

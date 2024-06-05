@@ -81,11 +81,11 @@ class SocketDrawingBaseclass:
             layout.label(text=f"Active Node: {nice_name(node)}")
             box = layout.box()
 
-            display_mode = fetch_user_preferences("display_mode")
+            panel_orientation = fetch_user_preferences("panel_orientation")
 
-            if display_mode == "AUTOMATIC":
+            if panel_orientation == "AUTOMATIC":
                 sublayout = box.grid_flow(even_columns=True)
-            elif display_mode == "HORIZONTAL":
+            elif panel_orientation == "HORIZONTAL":
                 sublayout = box.row()
             else:
                 sublayout = box.column()

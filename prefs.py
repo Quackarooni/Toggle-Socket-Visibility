@@ -17,8 +17,8 @@ def panel_category_callback(self, context):
 class NodeToggleInputOutputPrefs(AddonPreferences):
     bl_idname = __package__
 
-    display_mode: EnumProperty(
-        name="Display Mode",
+    panel_orientation: EnumProperty(
+        name="Panel Orientation",
         items=(
             ("AUTOMATIC", "Automatic", "Display entries horizontally/vertically depending on panel width"),
             ("HORIZONTAL", "Horizontal", "Display input and output entries side-by-side"),
@@ -36,7 +36,7 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
     )
 
     popup_width: IntProperty(
-        name="Popup Width",
+        name="Pop-up Width",
         default=250,
         min=100,
         soft_max=600,
@@ -58,7 +58,7 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
         panel_settings.label(text="Panel Settings:")
         panel_settings.separator(factor=0.25)
         panel_settings.use_property_split = True
-        panel_settings.prop(self, "display_mode")
+        panel_settings.prop(self, "panel_orientation", text="Orientation")
         panel_settings.prop(self, "panel_location", text="Location")
 
         popup_settings = col2.box().column()

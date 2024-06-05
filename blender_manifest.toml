@@ -1,0 +1,15 @@
+schema_version = "1.0.0"
+
+id = "toggle_socket_visibility"
+name = "Toggle Socket Visibility"
+version = "0.0.1"
+tagline = "Control which node sockets are visible or not via panel/pop-up"
+maintainer = "Quackers"
+type = "add-on"
+tags = ["Node", "User Interface"]
+
+blender_version_min = "4.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[build]
+paths_exclude_pattern = ["/.git/", "__pycache__/"]

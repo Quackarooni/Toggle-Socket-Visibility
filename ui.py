@@ -34,7 +34,11 @@ class SocketDrawingBaseclass:
         if len(sockets) <= 0:
             return
 
-        layout = layout.box().column(align=True)
+        layout = layout.box().row(align=True)
+        col1 = layout.column(align=True)
+        col1.alignment = "RIGHT"
+        col1.ui_units_x = 1
+        col2 = layout.column(align=True)
 
         for inp in sockets:
             if not inp.enabled or isinstance(inp, NodeSocketVirtual):
@@ -45,14 +49,12 @@ class SocketDrawingBaseclass:
             else:
                 name = inp.label
 
-            row = layout.row(align=True)
-
             if not inp.is_linked:
-                row.prop(inp, "hide", text="", invert_checkbox=True)
+                col1.prop(inp, "hide", text="", invert_checkbox=True)
             else:
-                row.label(text="", icon="DECORATE_LINKED")
+                col1.label(text="", icon="DECORATE_LINKED")
 
-            row.label(text=name)
+            col2.label(text=name)
         return
 
     @staticmethod

@@ -79,20 +79,24 @@ class SocketDrawingBaseclass:
             layout.label(text=f"Active Node: {nice_name(node)}")
             box = layout.box()
 
-            display_horizontal = fetch_user_preferences("display_mode") == "HORIZONTAL"
+            display_mode = fetch_user_preferences("display_mode")
 
-            if display_horizontal:
+            if display_mode == "AUTOMATIC":
+                sublayout = box.grid_flow(even_columns=True)
+            elif display_mode == "HORIZONTAL":
                 sublayout = box.row()
             else:
                 sublayout = box.column()
 
             if has_inputs:
                 col = sublayout.column(align=True)
+                col.ui_units_x = 5
                 self.draw_title(col, header_text="Inputs")
                 self.draw_sockets(col, sockets=inputs)
 
             if has_outputs:
                 col = sublayout.column(align=True)
+                col.ui_units_x = 5
                 self.draw_title(col, header_text="Outputs")
                 self.draw_sockets(col, sockets=outputs)
 

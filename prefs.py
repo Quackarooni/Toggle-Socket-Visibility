@@ -20,10 +20,11 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
     display_mode: EnumProperty(
         name="Display Mode",
         items=(
+            ("AUTOMATIC", "Automatic", "Display entries horizontally/vertically depending on panel width"),
             ("HORIZONTAL", "Horizontal", "Display input and output entries side-by-side"),
             ("VERTICAL", "Vertical", "Display input entries above output entries"),
         ),
-        default="HORIZONTAL",
+        default="AUTOMATIC",
         description="Determines how the inputs & outputs are going to be displayed",
     )
 

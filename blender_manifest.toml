@@ -18,4 +18,5 @@ paths_exclude_pattern = [
   "**/__pycache__/",
   ".ruff_cache",
   "pyproject.toml",
+  "/release/**",
 ]

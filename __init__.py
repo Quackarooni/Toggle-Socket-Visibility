@@ -16,7 +16,7 @@ bl_info = {
     "author": "Quackers",
     "description": "Adds a panel for configuring the visibility of a node's inputs and/or outputs",
     "blender": (3, 0, 0),
-    "version": (0, 0, 1),
+    "version": (1, 0, 0),
     "location": "Node Editor",
     "category": "Node",
 }

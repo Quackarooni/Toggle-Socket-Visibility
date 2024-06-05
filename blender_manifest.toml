@@ -2,7 +2,7 @@ schema_version = "1.0.0"
 
 id = "toggle_socket_visibility"
 name = "Toggle Socket Visibility"
-version = "0.0.1"
+version = "1.0.0"
 tagline = "Control which node sockets are visible or not via panel/pop-up"
 maintainer = "Quackers"
 type = "add-on"

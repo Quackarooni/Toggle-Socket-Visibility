@@ -46,9 +46,27 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
 
     def draw(self, context):
         layout = self.layout
-        layout.prop(self, "display_mode")
-        layout.prop(self, "panel_location")
-        layout.prop(self, "popup_width")
+
+        grid_flow = layout.grid_flow(even_columns=True)
+        col1 = grid_flow.column()
+        col2 = grid_flow.column()
+        col_width = 11.25
+        col1.ui_units_x = col_width
+        col2.ui_units_x = col_width
+
+        panel_settings = col1.box().column()
+        panel_settings.label(text="Panel Settings:")
+        panel_settings.separator(factor=0.25)
+        panel_settings.use_property_split = True
+        panel_settings.prop(self, "display_mode")
+        panel_settings.prop(self, "panel_location", text="Location")
+
+        popup_settings = col2.box().column()
+        popup_settings.use_property_split = True
+        popup_settings.label(text="Pop-up Settings:")
+        popup_settings.separator(factor=0.25)
+        popup_settings.prop(self, "popup_width", text="Width")
+
         keymap_layout.draw_keyboard_shorcuts(self, layout, context)
 
 

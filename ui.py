@@ -78,7 +78,7 @@ class SocketDrawingBaseclass:
             has_inputs = len(inputs) > 0
             has_outputs = len(outputs) > 0
 
-            layout.label(text=f"Active Node: {nice_name(node)}")
+            layout.label(text=f"{nice_name(node)}", icon="NODE")
             box = layout.box()
 
             panel_orientation = fetch_user_preferences("panel_orientation")
@@ -136,7 +136,7 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
         layout = self.layout
         node = context.active_node
 
-        layout.label(text=f"Active Node: {nice_name(node)}", icon="NODE")
+        layout.label(text=f"{nice_name(node)}", icon="NODE")
         box = layout.box()
 
         inputs, outputs = node.inputs, node.outputs

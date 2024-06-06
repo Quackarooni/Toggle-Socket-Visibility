@@ -30,7 +30,7 @@ def nice_name(node):
 
 class SocketDrawingBaseclass:
     @staticmethod
-    def draw_sockets(layout, sockets):
+    def draw_sockets(layout, node, sockets):
         if len(sockets) <= 0:
             return
 
@@ -49,10 +49,12 @@ class SocketDrawingBaseclass:
             else:
                 name = inp.label
 
-            if not inp.is_linked:
-                col1.prop(inp, "hide", text="", invert_checkbox=True)
-            else:
+            if inp.is_linked:
                 col1.label(text="", icon="DECORATE_LINKED")
+            elif node.bl_idname == "NodeReroute":
+                col1.label(text="", icon="LOCKED")
+            else:
+                col1.prop(inp, "hide", text="", invert_checkbox=True)
 
             col2.label(text=name)
         return
@@ -94,13 +96,13 @@ class SocketDrawingBaseclass:
                 col = sublayout.column(align=True)
                 col.ui_units_x = 5
                 self.draw_title(col, header_text="Inputs")
-                self.draw_sockets(col, sockets=inputs)
+                self.draw_sockets(col, node=node, sockets=inputs)
 
             if has_outputs:
                 col = sublayout.column(align=True)
                 col.ui_units_x = 5
                 self.draw_title(col, header_text="Outputs")
-                self.draw_sockets(col, sockets=outputs)
+                self.draw_sockets(col, node=node, sockets=outputs)
 
             if not (has_inputs or has_outputs):
                 sublayout.label(text="No inputs/outputs found.", icon="PANEL_CLOSE")
@@ -148,12 +150,12 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
         if has_inputs:
             col = sublayout.column(align=True)
             self.draw_title(col, header_text="Inputs")
-            self.draw_sockets(col, sockets=inputs)
+            self.draw_sockets(col, node=node, sockets=inputs)
 
         if has_outputs:
             col = sublayout.column(align=True)
             self.draw_title(col, header_text="Outputs")
-            self.draw_sockets(col, sockets=outputs)
+            self.draw_sockets(col, node=node, sockets=outputs)
 
         if not (has_inputs or has_outputs):
             sublayout.label(text="No inputs/outputs found.", icon="PANEL_CLOSE")

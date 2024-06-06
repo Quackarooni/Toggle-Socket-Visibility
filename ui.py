@@ -162,7 +162,14 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
         return {"FINISHED"}
 
     def invoke(self, context, event):
-        width = fetch_user_preferences("popup_width")
+        node = context.active_node
+
+        if len(node.inputs) and len(node.outputs):
+            no_of_columns = 1.75
+        else:
+            no_of_columns = 1
+
+        width = int(fetch_user_preferences("popup_width") * no_of_columns)
         return context.window_manager.invoke_popup(self, width=width)
 
 

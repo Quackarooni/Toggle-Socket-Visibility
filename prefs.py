@@ -37,9 +37,9 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
 
     popup_width: IntProperty(
         name="Pop-up Width",
-        default=250,
-        min=100,
-        soft_max=600,
+        default=175,
+        min=50,
+        soft_max=300,
         max=9999,
         description="Specifies the width of the pop-up panel",
     )

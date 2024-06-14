@@ -120,10 +120,10 @@ class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
         return nodetree is not None
 
 
-class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
-    bl_label = "Toggle Socket Visibility"
-    bl_idname = "node.toggle_socket_visibility"
-    bl_description = "Renames all selected nodes according to specified label"
+class NODE_OT_CALL_SOCKET_VISIBILITY_POPUP(Operator, SocketDrawingBaseclass):
+    bl_label = "Call Socket Visibility Pop-up"
+    bl_idname = "node.call_socket_visibility_popup"
+    bl_description = "Calls the pop-up panel for socket visibility"
     bl_options = {"REGISTER"}
 
     @classmethod
@@ -177,7 +177,7 @@ class NODE_OT_TOGGLE_NODE_SOCKETS_POPUP(Operator, SocketDrawingBaseclass):
 
 classes = (
     NODE_PT_TOGGLE_NODE_SOCKETS,
-    NODE_OT_TOGGLE_NODE_SOCKETS_POPUP,
+    NODE_OT_CALL_SOCKET_VISIBILITY_POPUP,
 )
 
 

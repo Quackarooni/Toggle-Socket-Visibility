@@ -1,12 +1,12 @@
 from .keymap_ui import KeymapItemDef, KeymapStructure, KeymapLayout
 from .ui import (
-    NODE_OT_TOGGLE_NODE_SOCKETS_POPUP,
+    NODE_OT_CALL_SOCKET_VISIBILITY_POPUP,
 )
 
 
 keymap_structure = KeymapStructure(
     [
-        KeymapItemDef(NODE_OT_TOGGLE_NODE_SOCKETS_POPUP.bl_idname, keymap_name="Node Editor", space_type="NODE_EDITOR"),
+        KeymapItemDef(NODE_OT_CALL_SOCKET_VISIBILITY_POPUP.bl_idname, keymap_name="Node Editor", space_type="NODE_EDITOR"),
     ]
 )
 

@@ -14,7 +14,7 @@ def panel_category_callback(self, context):
     bpy.utils.register_class(NODE_PT_TOGGLE_NODE_SOCKETS)
 
 
-class NodeToggleInputOutputPrefs(AddonPreferences):
+class NodeToggleSocketVisibilityPrefs(AddonPreferences):
     bl_idname = __package__
 
     panel_orientation: EnumProperty(
@@ -70,10 +70,10 @@ class NodeToggleInputOutputPrefs(AddonPreferences):
         keymap_layout.draw_keyboard_shorcuts(self, layout, context)
 
 
-keymap_layout.register_properties(preferences=NodeToggleInputOutputPrefs)
+keymap_layout.register_properties(preferences=NodeToggleSocketVisibilityPrefs)
 
 
-classes = (NodeToggleInputOutputPrefs,)
+classes = (NodeToggleSocketVisibilityPrefs,)
 
 
 def register():

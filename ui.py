@@ -65,6 +65,18 @@ class SocketDrawingBaseclass:
         row.alignment = "CENTER"
         row.label(text=header_text)
 
+
+class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
+    bl_label = "Socket Visibility"
+    bl_space_type = "NODE_EDITOR"
+    bl_region_type = "UI"
+    bl_category = "View"
+
+    @classmethod
+    def poll(cls, context):
+        nodetree = fetch_active_nodetree(context)
+        return nodetree is not None
+
     def draw(self, context):
         layout = self.layout
         node_tree = fetch_active_nodetree(context)
@@ -106,18 +118,6 @@ class SocketDrawingBaseclass:
 
             if not (has_inputs or has_outputs):
                 sublayout.label(text="No inputs/outputs found.", icon="PANEL_CLOSE")
-
-
-class NODE_PT_TOGGLE_NODE_SOCKETS(Panel, SocketDrawingBaseclass):
-    bl_label = "Socket Visibility"
-    bl_space_type = "NODE_EDITOR"
-    bl_region_type = "UI"
-    bl_category = "View"
-
-    @classmethod
-    def poll(cls, context):
-        nodetree = fetch_active_nodetree(context)
-        return nodetree is not None
 
 
 class NODE_OT_CALL_SOCKET_VISIBILITY_POPUP(Operator, SocketDrawingBaseclass):
